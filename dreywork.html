@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DM</title>
+    <link rel="shortcut icon" href="../css pic/dreyfavicon.jpg" type="image/x-icon">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Work+Sans:wght@300;400;500;600&display=swap');
+        
+        :root {
+            --primary: #0a0a0a;
+            --secondary: #1a1a1a;
+            --accent: #f5f5f0;
+            --text: #e8e8e8;
+            --text-muted: #888888;
+            --border: rgba(245, 245, 240, 0.15);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Work Sans', sans-serif;
+            background: var(--primary);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Typography */
+        h1, h2, h3, h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            letter-spacing: 0.02em;
+        }
+        
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .nav-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 1.5rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-weight: 400;
+            letter-spacing: 0.3em;
+            color: var(--accent);
+            text-decoration: none;
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+        
+        .nav-menu a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--accent);
+            transition: width 0.3s;
+        }
+        
+        .nav-menu a:hover {
+            color: var(--accent);
+        }
+        
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 8rem 2rem 4rem;
+            position: relative;
+            background: 
+                linear-gradient(135deg, rgba(26, 26, 26, 0.4), rgba(10, 10, 10, 0.9)),
+                radial-gradient(circle at 30% 50%, rgba(245, 245, 240, 0.03), transparent 50%);
+        }
+        
+        .hero-content {
+            max-width: 1000px;
+            z-index: 10;
+        }
+        
+        .hero h1 {
+            font-size: clamp(3rem, 10vw, 7rem);
+            line-height: 1;
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+        
+        .hero p {
+            font-size: clamp(1rem, 2vw, 1.4rem);
+            color: var(--text-muted);
+            letter-spacing: 0.1em;
+            margin-bottom: 3rem;
+        }
+        
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 1.2rem 3.5rem;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--accent);
+            transition: left 0.4s;
+            z-index: -1;
+        }
+        
+        .btn:hover {
+            color: var(--primary);
+        }
+        
+        .btn:hover::before {
+            left: 0;
+        }
+        
+        /* Automation Banner */
+        .auto-banner {
+            background: linear-gradient(90deg, var(--secondary), #252525, var(--secondary));
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            padding: 1.2rem 2rem;
+            text-align: center;
+        }
+        
+        .auto-banner p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            letter-spacing: 0.05em;
+        }
+        
+        .auto-banner strong {
+            color: var(--accent);
+            font-weight: 500;
+        }
+        
+        /* Section Styles */
+        section {
+            padding: 8rem 4rem;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+        
+        .section-badge {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+        
+        .section-title {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            margin-bottom: 1rem;
+        }
+        
+        .section-subtitle {
+            font-size: 1rem;
+            color: var(--text-muted);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+        
+        /* Gallery Grid */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+        
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 3/4;
+            background: var(--secondary);
+            border: 1px solid var(--border);
+        }
+        
+        .gallery-item:nth-child(2),
+        .gallery-item:nth-child(6),
+        .gallery-item:nth-child(11) {
+            aspect-ratio: 4/3;
+        }
+        
+        .gallery-item:nth-child(4),
+        .gallery-item:nth-child(8) {
+            aspect-ratio: 1/1;
+        }
+        
+        .gallery-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .gallery-item:hover .gallery-img {
+            transform: scale(1.08);
+        }
+        
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 2rem;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+        
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+        
+        .gallery-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.3rem;
+            transform: translateY(20px);
+            transition: transform 0.4s 0.1s;
+        }
+        
+        .gallery-category {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            transform: translateY(20px);
+            transition: transform 0.4s 0.15s;
+        }
+        
+        .gallery-item:hover .gallery-title,
+        .gallery-item:hover .gallery-category {
+            transform: translateY(0);
+        }
+        
+        /* Pricing Section */
+        .pricing-section {
+            background: var(--secondary);
+        }
+        
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .pricing-card {
+            background: var(--primary);
+            border: 1px solid var(--border);
+            padding: 3rem 2.5rem;
+            text-align: center;
+            transition: all 0.4s;
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-12px);
+            border-color: var(--accent);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+        }
+        
+        .pricing-card.featured {
+            border-color: var(--accent);
+            position: relative;
+        }
+        
+        .pricing-card.featured::before {
+            content: 'POPULAR';
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            padding: 0.4rem 1rem;
+            background: var(--accent);
+            color: var(--primary);
+            font-size: 0.65rem;
+            letter-spacing: 0.15em;
+            font-weight: 600;
+        }
+        
+        .pricing-tier {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .pricing-amount {
+            font-size: 3.5rem;
+            color: var(--accent);
+            margin: 1.5rem 0;
+            font-weight: 300;
+        }
+        
+        .pricing-features {
+            list-style: none;
+            margin: 2.5rem 0;
+            text-align: left;
+        }
+        
+        .pricing-features li {
+            padding: 0.9rem 0;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+        
+        .pricing-features li::before {
+            content: '✓';
+            color: var(--accent);
+            margin-right: 1rem;
+            font-weight: bold;
+        }
+        
+        /* Services Grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .service-card {
+            background: var(--secondary);
+            border: 1px solid var(--border);
+            padding: 3rem 2.5rem;
+            text-align: center;
+            transition: all 0.4s;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent);
+        }
+        
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .service-card h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .service-card p {
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+        
+        /* Contact Section */
+        .contact-section {
+            background: var(--secondary);
+        }
+        
+        .contact-wrapper {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 6rem;
+        }
+        
+        .contact-info h2 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .contact-info p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 3rem;
+        }
+        
+        .contact-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .contact-method {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            background: var(--primary);
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+        
+        .contact-method:hover {
+            border-color: var(--accent);
+            transform: translateX(10px);
+        }
+        
+        .contact-icon {
+            font-size: 2rem;
+            width: 50px;
+            text-align: center;
+        }
+        
+        .contact-method h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+            color: var(--accent);
+        }
+        
+        .contact-method p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin: 0;
+        }
+        
+        .contact-method a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .contact-method a:hover {
+            color: var(--accent);
+        }
+        
+        /* Contact Form */
+        .contact-form {
+            background: var(--primary);
+            border: 1px solid var(--border);
+            padding: 3rem;
+        }
+        
+        .form-grid {
+            display: grid;
+            gap: 2rem;
+        }
+        
+        .form-group {
+            position: relative;
+        }
+        
+        .form-input,
+        .form-textarea,
+        .form-select {
+            width: 100%;
+            padding: 1.3rem 0;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid var(--border);
+            color: var(--text);
+            font-family: 'Work Sans', sans-serif;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .form-input:focus,
+        .form-textarea:focus,
+        .form-select:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+        
+        .form-select {
+            cursor: pointer;
+            padding: 1.3rem 0;
+        }
+        
+        .form-select option {
+            background: var(--primary);
+            color: var(--text);
+        }
+        
+        .form-textarea {
+            resize: vertical;
+            min-height: 140px;
+            padding: 1.3rem 0;
+        }
+        
+        .form-label {
+            position: absolute;
+            top: 1.3rem;
+            left: 0;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            letter-spacing: 0.05em;
+            transition: all 0.3s;
+            pointer-events: none;
+        }
+        
+        .form-input:focus + .form-label,
+        .form-input:not(:placeholder-shown) + .form-label,
+        .form-textarea:focus + .form-label,
+        .form-textarea:not(:placeholder-shown) + .form-label {
+            top: -1rem;
+            font-size: 0.75rem;
+            color: var(--accent);
+        }
+        
+        .form-checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            padding: 1rem 0;
+        }
+        
+        .form-checkbox-group label {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+        
+        .form-checkbox-group input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 1.5rem;
+            background: var(--accent);
+            color: var(--primary);
+            border: none;
+            font-family: 'Work Sans', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.4s;
+        }
+        
+        .submit-btn:hover {
+            background: var(--primary);
+            color: var(--accent);
+            box-shadow: 0 0 0 1px var(--accent);
+        }
+        
+        /* Success Message */
+        .success-message {
+            display: none;
+            padding: 1.5rem;
+            background: rgba(76, 175, 80, 0.1);
+            border: 1px solid #4CAF50;
+            color: #4CAF50;
+            text-align: center;
+            margin-bottom: 2rem;
+            border-radius: 5px;
+        }
+        
+        .success-message.show {
+            display: block;
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--primary);
+            border-top: 1px solid var(--border);
+            padding: 4rem 4rem 2rem;
+        }
+        
+        .footer-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+        
+        .footer-section h4 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-section p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.8;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        
+        .social-links a {
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+        
+        .social-links a:hover {
+            color: var(--accent);
+        }
+        
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+        }
+        
+        /* Responsive */
+        @media (max-width: 968px) {
+            .contact-wrapper {
+                grid-template-columns: 1fr;
+                gap: 4rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            section {
+                padding: 4rem 2rem;
+            }
+            
+            .nav-container {
+                padding: 1.5rem 2rem;
+            }
+            
+            .nav-menu {
+                gap: 1.5rem;
+            }
+            
+            .nav-menu a {
+                font-size: 0.75rem;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .pricing-grid,
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-form {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="#" class="logo">DreyMoe</a>
+            <ul class="nav-menu">
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Dreymoe makes the MOE-ment<br>evergreen</h1>
+            <p>Contemporary Photography • Automated Booking • Instant Confirmation</p>
+            <a href="#contact" class="btn">Book Your Session</a>
+        </div>
+    </section>
+
+    <!-- Automation Banner -->
+    <div class="auto-banner">
+        <p><strong>✅ FULLY AUTOMATED:</strong> All inquiries sent instantly to your email & WhatsApp • Working 24/7</p>
+    </div>
+
+    <!-- Gallery -->
+    <section id="gallery">
+        <div class="section-header">
+            <span class="section-badge">Auto-Curated Portfolio</span>
+            <h2 class="section-title">Featured Work</h2>
+            <p class="section-subtitle">Latest Photography Collections</p>
+        </div>
+        
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img class="gallery-img" src="../css pic/portrait.jpg" alt="Portrait" loading="lazy">
+                <div class="gallery-overlay">
+                    <h3 class="gallery-title">Urban Portraits</h3>
+                    <p class="gallery-category">Portrait Series</p>
+                </div>
+            </div>
+            
+            <div class="gallery-item">
+                <img class="gallery-img" src="../css pic/tallbrand.jpg" alt="Architecture" loading="lazy">
+                <div class="gallery-overlay">
+                    <h3 class="gallery-title">Beyond fabric</h3>
+                    <p class="gallery-category">Style in motion</p>
+                </div>
+            </div>
+            
+            <div class="gallery-item">
+                <img class="gallery-img" src="../css pic/cute wedding.jpg" alt="Wedding" loading="lazy">
+                <div class="gallery-overlay">
+                    <h3 class="gallery-title">Love Stories</h3>
+                    <p class="gallery-category">Weddings</p>
+                </div>
+            </div>
+            
+            <div class="gallery-item">
+                <img class="gallery-img" src="../css pic/clown.jpg" alt="Fashion" loading="lazy">
+                <div class="gallery-overlay">
+                    <h3 class="gallery-title">Fashion Forward</h3>
+                    <p class="gallery-category">Editorial</p>
+                </div>
+            </div>
+            
+            <div class="gallery-item">
+                <img class="gallery-img" src="../css pic/natureproject.jpg" alt="Landscape" loading="lazy">
+                <div class="gallery-overlay">
+                    <h3 class="gallery-title">Natural Beauty</h3>
+                    <p class="gallery-category">Landscape</p>
+                </div>
+            </div>
+            
+            <div class="gallery-item">
+                <img class="gallery-img" src="../css pic/product.jpg" alt="Product" loading="lazy">
+                <div class="gallery-overlay">
+                    <h3 class="gallery-title">Product Excellence</h3>
+                    <p class="gallery-category">Commercial</p>
+                </div>
+            </div>
+            
+            <div class="gallery-item">
+                <img class="gallery-img" src="../css pic/branddrey.jpg" alt="Street" loading="lazy">
+                <div class="gallery-overlay">
+                    <h3 class="gallery-title">Urban Life</h3>
+                    <p class="gallery-category">Documentary</p>
+                </div>
+            </div>
+            
+            <div class="gallery-item">
+                <img class="gallery-img" src="../css pic/convopic.jpg" alt="Abstract" loading="lazy">
+                <div class="gallery-overlay">
+                    <h3 class="gallery-title">The Learning canvas</h3>
+                    <p class="gallery-category">Student Visions</p>
+                </div>
+            </div>
+            
+            <div class="gallery-item">
+                <img class="gallery-img" src="../css pic/monochrome.jpg" alt="Portrait B&W" loading="lazy">
+                <div class="gallery-overlay">
+                    <h3 class="gallery-title">Monochrome</h3>
+                    <p class="gallery-category">Portrait Study</p>
+                </div>
+            </div>
+            
+            <div class="gallery-item">
+                <img class="gallery-img" src="../css pic/wedding.jpg" alt="Family" loading="lazy">
+                <div class="gallery-overlay">
+                    <h3 class="gallery-title">Family Moments</h3>
+                    <p class="gallery-category">Lifestyle</p>
+                </div>
+            </div>
+            
+            <div class="gallery-item">
+                <img class="gallery-img" src="../css pic/graduate.jpg" alt="Interior" loading="lazy">
+                <div class="gallery-overlay">
+                    <h3 class="gallery-title">Graduation Fashion</h3>
+                    <p class="gallery-category">Architecture</p>
+                </div>
+            </div>
+            
+            <div class="gallery-item">
+                <img class="gallery-img" src="../css pic/strretpic.jpg" alt="Nature" loading="lazy">
+                <div class="gallery-overlay">
+                    <h3 class="gallery-title">Street vibesr</h3>
+                    <p class="gallery-category">Everyday magic</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section id="pricing" class="pricing-section">
+        <div class="section-header">
+            <span class="section-badge">Instant Booking Available</span>
+            <h2 class="section-title">Pricing Packages</h2>
+            <p class="section-subtitle">Choose Your Perfect Session</p>
+        </div>
+        
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <h3 class="pricing-tier">Standard package</h3>
+                <div class="pricing-amount">₦35K</div>
+                <ul class="pricing-features">
+                    <li>1 Hour Session</li>
+                    <li>3 Edited Photos</li>
+                    <li>Online Gallery</li>
+                    <li>High-Res Downloads</li>
+                    <li>4-days Delivery</li>
+                </ul>
+                <a href="#contact" class="btn">Book Now</a>
+            </div>
+            
+            <div class="pricing-card featured">
+                <h3 class="pricing-tier">classic package</h3>
+                <div class="pricing-amount">₦50k</div>
+                <ul class="pricing-features">
+                    <li>2 Hour Session</li>
+                    <li>6 Edited Photos</li>
+                    <li>Premium Gallery</li>
+                    <li>High-Res Downloads</li>
+                    <li>Print Release Rights</li>
+                    <li>6-days Delivery</li>
+                </ul>
+                <a href="#contact" class="btn">Book Now</a>
+            </div>
+            
+            <div class="pricing-card">
+                <h3 class="pricing-tier">Luxury</h3>
+                <div class="pricing-amount">₦75k</div>
+                <ul class="pricing-features">
+                    <li>Full Day Session</li>
+                    <li>10 Edited Photos</li>
+                    <li>Premium Gallery</li>
+                    <li>All High-Res Files</li>
+                    <li>Full Print Rights</li>
+                    <li>Multiple Locations</li>
+                    <li>Rush 10-Days Delivery</li>
+                </ul>
+                <a href="#contact" class="btn">Book Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section id="services">
+        <div class="section-header">
+            <span class="section-badge">Professional Services</span>
+            <h2 class="section-title">What We Offer</h2>
+            <p class="section-subtitle">Excellence in Every Frame</p>
+        </div>
+        
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">📸</div>
+                <h3>Portrait Photography</h3>
+                <p>Professional portrait sessions capturing personality and emotion with artistic vision and creative direction. Studio and outdoor locations available.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">💍</div>
+                <h3>Wedding Coverage</h3>
+                <p>Complete wedding day documentation with storytelling approach. Full day coverage, second shooter, and comprehensive editing included.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">🏢</div>
+                <h3>Commercial Work</h3>
+                <p>High-end commercial photography for brands, products, and architecture. Complete licensing and usage rights provided.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">🎭</div>
+                <h3>Event Photography</h3>
+                <p>Professional event coverage for corporate functions, parties, and special occasions. Candid and posed shots with quick turnaround.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">👨‍👩‍👧</div>
+                <h3>Family Sessions</h3>
+                <p>Natural, authentic family photography that captures genuine moments. Perfect for creating lasting memories and heirloom portraits.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">🎨</div>
+                <h3>Fine Art Prints</h3>
+                <p>Museum-quality prints and custom framing services. Gallery-grade materials and professional color management for lasting quality.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="contact-section">
+        <div class="contact-wrapper">
+            <div class="contact-info">
+                <span class="section-badge">✅ Automation Active</span>
+                <h2>Let's Create Together</h2>
+                <p>Submit your inquiry and receive instant confirmation. All messages are automatically sent to our email and WhatsApp. We respond within 24 hours.</p>
+                
+                <div class="contact-methods">
+                    <div class="contact-method">
+                        <div class="contact-icon">📧</div>
+                        <div>
+                            <h4>Email (Instant)</h4>
+                            <p>dreymoe12@gmail.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-method">
+                        <div class="contact-icon">📱</div>
+                        <div>
+                            <h4>WhatsApp (Direct)</h4>
+                            <p><a href="https://wa.me/2348181733979?text=I%27d%20like%20to%20book%20a%20session" target="_blank">+234 816 620 6069</a></p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-method">
+                        <div class="contact-icon">⚡</div>
+                        <div>
+                            <h4>Response Time</h4>
+                            <p>Instant confirmation • 24hr personal reply</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <form class="contact-form" action="https://api.web3forms.com/submit" method="POST">
+                <!-- Web3Forms Access Key - This makes it work instantly -->
+                <input type="hidden" name="access_key" value="7d47fc41-91b8-4a03-806e-4c168302222d">
+                
+                <!-- Email Configuration -->
+                <input type="hidden" name="subject" value="🔔 New Photography Inquiry - DreyMoe">
+                <input type="hidden" name="from_name" value="DreyMoe Photography Website">
+                <input type="hidden" name="redirect" value="https://web3forms.com/success">
+                
+                <div id="success-message" class="success-message">
+                    ✅ Thank you! Your message has been sent successfully. Check your email for confirmation.
+                </div>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <input type="text" name="name" class="form-input" placeholder=" " required>
+                        <label class="form-label">Full Name</label>
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="email" name="email" class="form-input" placeholder=" " required>
+                        <label class="form-label">Email Address</label>
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="tel" name="phone" class="form-input" placeholder=" " required>
+                        <label class="form-label">Phone / WhatsApp</label>
+                    </div>
+                    
+                    <div class="form-group">
+                        <select name="service" class="form-select" required>
+                            <option value="">— Select Service Type —</option>
+                            <option value="Portrait Photography">Portrait Photography</option>
+                            <option value="Wedding Coverage">Wedding Coverage</option>
+                            <option value="Commercial Work">Commercial Work</option>
+                            <option value="Event Photography">Event Photography</option>
+                            <option value="Family Sessions">Family Sessions</option>
+                            <option value="Other / Custom">Other / Custom</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <select name="package" class="form-select" required>
+                            <option value="">— Select Package —</option>
+                            <option value="Standard package - ₦35,000">Standard package - ₦50,000</option>
+                            <option value="Classic package - ₦50,000">Classic package - ₦100,000</option>
+                            <option value="Luxury package - ₦75,000">Luxury - ₦200,000</option>
+                            <option value="Custom Quote">Custom Quote</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="date" name="preferred_date" class="form-input" placeholder=" ">
+                        <label class="form-label">Preferred Session Date</label>
+                    </div>
+                    
+                    <div class="form-group">
+                        <textarea name="message" class="form-textarea" placeholder=" " required></textarea>
+                        <label class="form-label">Tell Us About Your Vision</label>
+                    </div>
+                    
+                    <div class="form-checkbox-group">
+                        <label>
+                            <input type="checkbox" name="email_updates" value="yes">
+                            <span>Send me email updates and special offers</span>
+                        </label>
+                        <label>
+                            <input type="checkbox" name="whatsapp_updates" value="yes" checked>
+                            <span>Send WhatsApp updates (recommended for faster response)</span>
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">
+                        Submit • Get Instant Confirmation
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-section">
+                <h4>DreyMoe Photography</h4>
+                <p>Professional creative photographer specializing in portraits, weddings, and commercial work. Fully automated booking system with instant email and WhatsApp confirmation.</p>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="#gallery">Portfolio</a></li>
+                    <li><a href="#pricing">Pricing</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">FAQs</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Contact Info</h4>
+                <ul class="footer-links">
+                    <li>📧 dreymoe12@gmail.com</li>
+                    <li>📱 +234 816 620 6069</li>
+                    <li>📍 Lagos, Nigeria</li>
+                    <li>✅ Automated 24/7</li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Follow Us</h4>
+                <div class="social-links">
+                    <a href="https://www.instagram.com/dreymoe?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank">Instagram</a>
+                    <a href="https://wa.me/2348181733979?text=I%27d%20like%20to%20book%20a%20session" target="_blank">WhatsApp</a>
+                    <a href="https://www.tiktok.com/@dreymoe?is_from_webapp=1&sender_device=pc" target="_blank">TikTok</a>
+                    <a href="https://pin.it/3QhfOJ1m0" target="_blank">Pinterest</a>
+                      </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>© 2026 DreyMoe Photography. All Rights Reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
